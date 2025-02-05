@@ -1,0 +1,42 @@
+# Ignore Ruby on Rails specific files
+/.bundle
+/log/*
+/tmp/*
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/public/assets
+/public/packs
+/node_modules
+/yarn-error.log
+.byebug_history
+
+# Ignore .env files for environment variables
+.env
+.env.local
+.env.test
+.env.production
+
+# Ignore Docker-related files
+.docker/
+.docker-compose.yml
+.dockerignore
+
+# Ignore Elasticsearch and Kibana data, logs, and configurations
+/elasticsearch/data
+/elasticsearch/logs
+/elasticsearch/config
+/kibana/config
+/kibana/data
+
+# Ignore Rails secret keys (if they aren't in an environment variable)
+/config/credentials.yml.enc
+/config/master.key
+
+# Ignore temporary files
+*.swp
+*~
+.idea/
+.vscode/
+
+# Ignore log files
+/log/*.log

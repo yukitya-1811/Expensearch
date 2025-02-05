@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  rails:
+    build: .
+    container_name: rails_app
+    working_dir: /app
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - es_instance
+    environment:
+      DATABASE_URL: mysql2://root:password@db:3306/myapp_development
+      ELASTICSEARCH_URL: http://es_instance:9200
+    command: ["sh", "-c", "bundle install && yarn install && rails server -b 0.0.0.0"]
+
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: myapp_development
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  es_instance:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.7.0
+    container_name: es_instance
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+
+  kibana_instance:
+    image: docker.elastic.co/kibana/kibana:8.7.0
+    container_name: kibana_instance
+    ports:
+      - "5601:5601"
+    depends_on:
+      - es_instance
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es_instance:9200
+
+volumes:
+  mysql_data:
+  es_data:
+  bundle_cache:
