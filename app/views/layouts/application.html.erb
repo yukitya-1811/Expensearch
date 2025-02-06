@@ -13,8 +13,16 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if flash.any? %>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          <% flash.each do |type, message| %>
+            <% toastr_type = { notice: "success", alert: "error" }[type.to_sym] || "info" %>
+            toastr.<%= toastr_type %>("<%= j message %>");
+          <% end %>
+        });
+      </script>
+    <% end %>
     <%= yield %>
   </body>
 </html>

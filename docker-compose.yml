@@ -37,12 +37,13 @@ services:
     environment:
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "xpack.security.enabled=true"
     ports:
       - "9200:9200"
       - "9300:9300"
     volumes:
       - es_data:/usr/share/elasticsearch/data
-
+      - es_config:/usr/share/elasticsearch/config
   kibana_instance:
     image: docker.elastic.co/kibana/kibana:8.7.0
     container_name: kibana_instance
@@ -52,8 +53,9 @@ services:
       - es_instance
     environment:
       - ELASTICSEARCH_HOSTS=http://es_instance:9200
-
+      - ELASTICSEARCH_SERVICE_ACCOUNT_TOKEN=AAEAAWVsYXN0aWMva2liYW5hL2RlZmF1bHQ6dWowazlySlFSeW1EMFpsNmFYMmRrdw
 volumes:
   mysql_data:
   es_data:
+  es_config:
   bundle_cache:
