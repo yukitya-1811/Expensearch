@@ -2,7 +2,7 @@ class PagesController < ApplicationController
     before_action :authenticate_user!
 
     def home
-        @user = "Ady"
+        @user = current_user.name
     end
 
     def test
