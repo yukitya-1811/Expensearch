@@ -7,4 +7,9 @@ class Transaction < ApplicationRecord
   validates :amount, presence: true
   validates :transaction_type, presence: true
   validates :status, presence: true
+
+  def self.get_target_user_map(user)
+    target_users = User.all.reject { |u| u.id == user.id }
+    target_users.map { |user| [user.name, user.id] }
+  end
 end

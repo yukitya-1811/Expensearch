@@ -13,5 +13,4 @@ class PagesController < ApplicationController
         puts "Hi"
         redirect_to root_path, notice: "Successfully logged in!"
     end
-
 end

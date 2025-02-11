@@ -1,0 +1,31 @@
+<h1 class="text-2xl font-bold mb-6">New Transaction</h1>
+
+<div class="max-w-lg mx-auto bg-white p-6 shadow-md rounded-lg">
+  <%= form_with model: @transaction, local: true, url: transactions_path, class: "space-y-4" do |form| %>
+    
+    <div>
+      <%= form.label :amount, "Amount", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.number_field :amount, step: "0.01", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :target_id, "Target User", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.select :target_id, options_for_select(Transaction.get_target_user_map(@current_user)), class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :description, "Description", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :description, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :transaction_type, "Transaction Type", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.select :transaction_type, ["credit", "debit", "self_transfer"], class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <div class="flex justify-end">
+      <%= form.submit "Create Transaction", class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md shadow-md transition duration-200" %>
+    </div>
+
+  <% end %>
+</div>
