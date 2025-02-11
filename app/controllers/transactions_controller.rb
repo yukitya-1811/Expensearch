@@ -17,6 +17,9 @@ class TransactionsController < ApplicationController
         redirect_to root_path
     end
 
+    def index
+        @transactions = Transaction.where(user_id: current_user.id).order(:created_at)
+    end
 
     private
     def transaction_params

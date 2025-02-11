@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get 'pages/test', to: 'pages#test'
   get 'pages/print', to: 'pages#print'
-  resources :transactions, only: [:new, :create]
+  resources :transactions, only: [:new, :create, :index]
 end

@@ -1,0 +1,38 @@
+<h1 class="text-5xl text-center font-extrabold my-6">Your Transactions</h1>
+
+<div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+  <table class="min-w-full border-collapse border border-gray-200">
+    <thead>
+      <tr class="bg-gray-100 text-gray-700 uppercase text-sm">
+        <th class="py-3 px-4 border">ID</th>
+        <th class="py-3 px-4 border">User ID</th>
+        <th class="py-3 px-4 border">Amount</th>
+        <th class="py-3 px-4 border">Type</th>
+        <th class="py-3 px-4 border">Target</th>
+        <th class="py-3 px-4 border">Description</th>
+        <th class="py-3 px-4 border">Status</th>
+        <th class="py-3 px-4 border">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @transactions.each do |t| %>
+        <tr class="border hover:bg-gray-50 text-gray-800">
+          <td class="py-3 px-4 border text-center"><%= t.id %></td>
+          <td class="py-3 px-4 border text-center"><%= t.user_id %></td>
+          <td class="py-3 px-4 border text-center font-bold <%= t.amount < 0 ? 'text-red-500' : 'text-green-500' %>">
+            <%= number_to_currency(t.amount) %>
+          </td>
+          <td class="py-3 px-4 border text-center capitalize"><%= t.transaction_type %></td>
+          <td class="py-3 px-4 border text-center"><%= t.target_id %></td>
+          <td class="py-3 px-4 border"><%= t.description %></td>
+          <td class="py-3 px-4 border text-center">
+            <span class="px-2 py-1 rounded text-xs font-semibold <%= t.status == 'completed' ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800' %>">
+              <%= t.status %>
+            </span>
+          </td>
+          <td class="py-3 px-4 border text-center text-sm text-gray-600"><%= t.created_at.strftime("%b %d, %Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
