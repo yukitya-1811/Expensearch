@@ -21,6 +21,14 @@ class TransactionsController < ApplicationController
         @transactions = Transaction.where(user_id: current_user.id).order(:created_at)
     end
 
+    # Only for AJAX
+    def search_transactions
+        transactions = Transaction.search(params[:q])
+        respond_to do |format|
+            format.json { render json: transactions.map { |t| { id: t.id, description: t.description, user: User.find_by(id: t.user_id).name } } }
+        end
+    end
+
     private
     def transaction_params
         params.require(:transaction).permit(:amount, :transaction_type, :target_id, :description)

@@ -1,4 +1,5 @@
 class Transaction < ApplicationRecord
+  searchkick
   belongs_to :user
 
   enum :transaction_type, { :credit=>'credit', :debit=>'debit', :self_transfer=>'self_transfer' }

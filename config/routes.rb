@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get 'pages/test', to: 'pages#test'
   get 'pages/print', to: 'pages#print'
   resources :transactions, only: [:new, :create, :index]
+  get 'transactions/search', to: 'transactions#search_transactions'
 end
